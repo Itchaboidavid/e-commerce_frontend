@@ -8,8 +8,10 @@ const { errors } = storeToRefs(useAuthStore());
 const { authenticate } = useAuthStore();
 
 const formData = reactive({
+    name: '',
     email: '',
-    password: ''
+    password: '',
+    password_confirmation: ''
 });
 </script>
 
@@ -40,13 +42,18 @@ const formData = reactive({
                             </g>
                         </svg>
                         <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">
-                            Welcome to PrimeLand!
+                            Registration Form
                         </div>
-                        <span class="text-muted-color font-medium">Sign in to continue</span>
+                        <span class="text-muted-color font-medium">Fill up the form</span>
                     </div>
 
                     <div>
-                        <form @submit.prevent="authenticate('login', formData)">
+                        <form @submit.prevent="authenticate('register', formData)">
+                            <label for="name"
+                                class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Name</label>
+                            <InputText id="name" name="name" type="text" placeholder="Name"
+                                class="w-full md:w-[30rem] mb-8" v-model="formData.name" :invalid="!!errors.name" />
+
                             <label for="email"
                                 class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Email</label>
                             <InputText id="email" name="email" type="email" placeholder="Email address"
@@ -55,15 +62,23 @@ const formData = reactive({
                             <label for="password"
                                 class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Password</label>
                             <Password id="password" name="password" v-model="formData.password" placeholder="Password"
-                                :toggleMask="true" class="mb-4" fluid :feedback="false" :invalid="!!errors.password">
+                                :toggleMask="true" class="mb-8" fluid :feedback="false" :invalid="!!errors.password">
+                            </Password>
+
+                            <label for="password_confirmation"
+                                class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Confirm
+                                Password</label>
+                            <Password id="password_confirmation" name="password_confirmation"
+                                v-model="formData.password_confirmation" placeholder="Confirm Password"
+                                :toggleMask="true" class="mb-4" fluid :feedback="false">
                             </Password>
 
                             <div class="flex items-center justify-end mt-2 mb-8 gap-8">
                                 <span class="font-medium no-underline ml-2 text-right cursor-pointer text-primary">
-                                    Forgot password?
+                                    Already got an account?
                                 </span>
                             </div>
-                            <Button label="Sign In" class="w-full" type="submit"></Button>
+                            <Button label="Register" class="w-full" type="submit"></Button>
                         </form>
                     </div>
                 </div>
