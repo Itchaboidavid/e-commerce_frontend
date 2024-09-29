@@ -2,16 +2,13 @@
 import { useLayout } from '@/layout/composables/layout';
 import AppConfigurator from './AppConfigurator.vue';
 import { useAuthStore } from '@/stores/auth';
-import { onMounted } from 'vue';
 
 const { onMenuToggle, toggleDarkMode, isDarkTheme } = useLayout();
-
 const { logout } = useAuthStore();
 
 defineProps({
     user: Object
 })
-
 </script>
 
 <template>

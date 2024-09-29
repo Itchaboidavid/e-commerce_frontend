@@ -52,12 +52,14 @@ export const useAuthStore = defineStore('authStore', {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
-            })
+            });
 
             if(res.ok) {
                 localStorage.removeItem('token');
-                this.router.push({name: 'landing'});
-            }
+                // this.router.push({name: 'landing'});
+
+                window.location.reload()
+            };
         }
     }
 });
